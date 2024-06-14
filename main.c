@@ -3,27 +3,25 @@
 
 int main() {
   char c = 'a';
-  char* line = NULL;
+  int num = 0;
+  int* arr = NULL;
+  arr = calloc(1, sizeof(int));
 
-  line = malloc(1 * sizeof(char));
-  if (!line) {
-    printf("Memory allocation error");
-    return 1;
+  int index = 1;
+  while (scanf("%d%c", &num, &c) && num != -1 && (c == ' ' || c == '\n')) {
+    arr[index - 1] = num;
+    int* tmp = realloc(arr, (index + 1) * sizeof(int));
+    if (tmp) arr = tmp;
+    ++index;
   }
 
-  int counter = 1;
-  while (c != '\n') {
-    char* tmp = realloc(line, (counter + 1) * sizeof(char));
-    if (tmp) line = tmp;
-    scanf("%c", &c);
-    line[counter - 1] = c;
-    line[counter] = '\0';
-    ++counter;
+  int * pointer = arr;
+
+  for (int i = 0; i < index - 1; ++i) {
+    printf("%d ", *pointer++);
   }
 
-  printf("%s", line);
-
-  free(line);
+  free(arr);
 
   return 0;
 }
